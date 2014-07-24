@@ -1,0 +1,175 @@
+CMS,p+,pbar-,1960
+5000000,5000
+!********* Datacard for ppbar->W(+jets)->enu production ********* 
+!
+! Author: M. Jaffre
+! Last modified: sep. 20, 2006
+! Comments: this cardfile is meant for d0runjob testing
+! 
+!          MCP17/20                    PYTHIA v6.3/4
+!
+!  PROTON PARTON DENSITY FUNCTIONS FROM LHAPDF v4/5
+!
+!  SET MSTP(52) = 2 FOR USE OF EXTERNAL PDFs (NOT PYTHIA INTERNAL PDFs)
+!  SET MSTP(51) = CODE-pdf or CODE-grid
+!  EXAMPLES:
+!  NAME          FIT ORDER   CODE-pdf   CODE-grid  Comments
+!  CTEQ5L        LO          -          19070      mcp14 default
+!  CTEQ6L1       LO          10042      -          mcp17 default, LHPDFCTEQ6L1 (Aug '05)
+!  CTEQ6L        LO          10041      -
+!  CTEQ6M        NLO         10000      10050      ***plus 40 error PDFs (10051-10090)***
+!  CTEQ61        NLO         10100      10150      ***plus 40 error PDFs (10151-10190)***
+!  MRST01lo      LO          -          20060
+!  MRST01E       NLO         20100      20150      ***plus 30 error PDFs (20151-20180)***
+!  MRST01nnlo    NNLO        -          20070
+!  Alekhin02lo   LO          -          40350      ***plus 15 error PDFs (40351-40365)***
+!  Alekhin02nlo  NLO         -          40450      ***plus 15 error PDFs (40451-40465)***
+!  Alekhin02nnlo NNLO        -          40550      ***plus 15 error PDFs (40551-40565)***
+!
+!  See http://www-d0.fnal.gov/computing/MonteCarlo/generator_tools/pdf_correspondence.html
+!  and http://www-clued0.fnal.gov/runjob/current/SupportedPDFs.html for mc_runjob specifs
+!
+MSTP(51)=10042
+MSTP(52)=2
+!
+! Changing the random number seed
+MRPY(1)=XXX_RANSEED2
+!
+! Choose the physics process(es)
+MSEL=12
+!
+!  Kinematical cuts
+CKIN(1)=60.0     ! hard 2->2 process min mass*
+CKIN(2)=130.0     ! hard 2->2 process max mass*    
+CKIN(9)=-5.0      ! Bounds for Max(y*3,y*4)
+CKIN(10)=5.0     ! of the 2->2 hard process
+CKIN(11)=-5.0     ! Bounds for Min(y*3,y*4)
+CKIN(12)=5.0     ! of the 2->2 hard process
+!
+! Forcing Z decays into dielectrons
+MDME(190,1) = 0 ! 0.321392    dbar            u
+MDME(191,1) = 0 ! 0.016496    dbar            c
+MDME(192,1) = 0 ! 0.000000    dbar            t
+MDME(193,1) =-1 ! 0.000000    dbar            t'
+MDME(194,1) = 0 ! 0.016503    sbar            u
+MDME(195,1) = 0 ! 0.320668    sbar            c
+MDME(196,1) = 0 ! 0.000000    sbar            t
+MDME(197,1) =-1 ! 0.000000    sbar            t'
+MDME(198,1) = 0 ! 0.000010    bbar            u
+MDME(199,1) = 0 ! 0.000591    bbar            c
+MDME(200,1) = 0 ! 0.000000    bbar            t
+MDME(201,1) =-1 ! 0.000000    bbar            t'
+MDME(202,1) =-1 ! 0.000000    b'bar           u
+MDME(203,1) =-1 ! 0.000000    b'bar           c
+MDME(204,1) =-1 ! 0.000000    b'bar           t
+MDME(205,1) =-1 ! 0.000000    b'bar           t'
+MDME(206,1) = 1 ! 0.108140    e+              nu_e
+MDME(207,1) = 0 ! 0.108139    mu+             nu_mu
+MDME(208,1) = 0 ! 0.108060    tau+            nu_tau
+MDME(209,1) =-1 ! 0.000000    tau'+           nu'_tau
+!
+! Fix Lambda_QCD by hand. Tuned for the CTEQ6L1 PDFs. (T. Nunnemann)
+MSTP(2)=1         ! LO evolution of alpha_s for ME
+MSTP(3)=1         ! set lambda values by hand; ! The following is good for CTEQ6L1 !
+MSTU(112)=5       ! 5 flavour scheme
+PARU(112)=0.165   ! lambda_QCD used in PYALPS
+PARP(1)=0.165     ! lambda_QCD for ME (hard interaction)
+PARP(61)=0.165    ! lamba_QCD for space-like PS
+PARP(72)=0.165    ! lambda_QCD for time-like PS (not from resonances)
+!
+! HF quarks mass
+PMAS(6,1)=170.
+PMAS(5,1)=4.75
+PMAS(4,1)=1.55
+!
+! Set a few B meson/baryon masses to match new ptable.dat and pdt.table values
+PMAS(C5122,1)=5.624
+PMAS(C541,1)=6.3
+!
+! y* (true rapidity in the HS center-of-mass framework)
+CKIN(9)=-5.0      ! Bounds for Max(y*3,y*4)
+CKIN(10)=5.0      ! of the 2->2 hard process
+CKIN(11)=-5.0     ! Bounds for Min(y*3,y*4)
+CKIN(12)=5.0      ! of the 2->2 hard process
+!
+! Underlying event tuning
+! The following PARP(67,83-86,90) parameters should 
+! be adapted for PDFs different than CTEQ5L !!!
+!  tuneA
+MSTP(81)=1     ! TURN ON MULTIPLE INTERACTIONS
+MSTP(82)=4     ! varying IP 2-gauss. matter distr
+PARP(67)=4.0   ! ISR Max Scale Factor
+PARP(82)=2.0   ! smooth turn off below pT=PARP(82)
+PARP(83)=0.5   !
+PARP(84)=0.4   !
+PARP(85)=0.9   ! 
+PARP(86)=0.95  !
+PARP(89)=1800. !
+PARP(90)=0.25  !
+!
+! Tau decay
+MDCY(15,1)=0   ! Sets tau stable - important for TAUOLA
+!
+! The next line is _mandatory_ for RunII production
+MSTJ(22)=2     ! A particle is decayed only if its
+! proper lifetime is smaller than PARJ(71)
+! default should be ok (strange particles stable, charm & bottom decay)
+!
+MSTU(16)=2     ! Improved particle history record
+! Updated version (Alberto Sanchez, Lars Sonnenschein, 11may04)
+! New default for the Common Samples MC Pythia cardfiles
+! set "most known" B-hadrons stable, decayed by QQ or EvtGen
+!
+MDCY(C511,1)=0    ! B0
+MDCY(C513,1)=0    ! B*0
+MDCY(C521,1)=0    ! B+
+MDCY(C523,1)=0    ! B*+
+MDCY(C531,1)=0    ! B_s0
+MDCY(C533,1)=0    ! B_s*0
+MDCY(C541,1)=0    ! B_c+
+MDCY(C553,1)=0    ! Upsilon
+MDCY(C555,1)=0    ! chi_b2
+MDCY(C5122,1)=0   ! Lambda_b0
+MDCY(C5132,1)=0   ! Xi_b-
+MDCY(C20553,1)=0  ! chi_b1
+MDCY(C100553,1)=0 ! Upsilon(2S)
+! Updated version (Alberto Sanchez, Lars Sonnenschein, 11may04)
+! New default for the Common Samples MC Pythia cardfiles
+! set "most known" C-hadrons stable, decayed by QQ or EvtGen
+!
+MDCY(C411,1)=0 ! D+
+MDCY(C413,1)=0 ! D*+
+MDCY(C415,1)=0 ! D*_2+
+MDCY(C421,1)=0 ! D0
+MDCY(C423,1)=0 ! D*0
+MDCY(C425,1)=0 ! D_2*0
+MDCY(C431,1)=0 ! D_s+
+MDCY(C433,1)=0 ! D_s*+
+MDCY(C435,1)=0 ! D_s2*+
+MDCY(C441,1)=0 ! eta_c
+MDCY(C443,1)=0 ! J/psi
+MDCY(C445,1)=0 ! chi_c2
+MDCY(C4112,1)=0 ! Sigma_c0
+MDCY(C4114,1)=0 ! Sigma_c*0
+MDCY(C4122,1)=0 ! Lambda_c+
+MDCY(C4212,1)=0 ! Sigma_c+
+MDCY(C4214,1)=0 ! Sigma_c*+
+MDCY(C4222,1)=0 ! Sigma_c++
+MDCY(C4224,1)=0 ! Sigma_c*++
+MDCY(C4312,1)=0 ! Xi'_c0
+MDCY(C4314,1)=0 ! Xi_c*0
+MDCY(C4322,1)=0 ! Xi'_c+
+MDCY(C4324,1)=0 ! Xi_c*+
+MDCY(C4334,1)=0 ! Omega_c*0
+MDCY(C10411,1)=0  ! D_0*+
+MDCY(C10413,1)=0  ! D_1+
+MDCY(C10421,1)=0  ! D_0*0
+MDCY(C10423,1)=0  ! D_10
+MDCY(C10431,1)=0  ! D_s0*+
+MDCY(C10433,1)=0  ! D_s1+
+MDCY(C10441,1)=0  ! chi_c0
+MDCY(C20413,1)=0  ! D'_1+
+MDCY(C20423,1)=0  ! D'_10
+MDCY(C20433,1)=0  ! D'_s1+
+MDCY(C20443,1)=0  ! chi_c1
+MDCY(C100443,1)=0 ! psi(2s)
