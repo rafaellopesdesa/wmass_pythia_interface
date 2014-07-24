@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export job=`printf "%d" $1` 
+echo $job
+qsub -koe -me -M rclsa@fnal.gov -l nodes=1 -v job -q medium@d0cabsrv1 cabpythia.sh

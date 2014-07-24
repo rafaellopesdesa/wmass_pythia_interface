@@ -1,0 +1,93 @@
+CMS,p+,pbar-,1960
+500,10
+!********* Datacard for W->enu(+jets) production ********* 
+!          MCP17                    PYTHIA v6.323
+!
+!  PROTON PARTON DENSITY FUNCTIONS FROM LHAPDF v5_6_0
+!  For a COMPLETE LIST of PDFS http://projects.hepforge.org/lhapdf/pdfsets
+!  SET MSTP(52) = 2 FOR USE OF EXTERNAL PDFs (NOT PYTHIA INTERNAL PDFs)
+!  SET MSTP(51) = CODE-pdf or CODE-grid
+!  EXAMPLES:
+!  NAME          FIT ORDER   CODE-pdf   CODE-grid  Comments
+!  CTEQ5L        LO          -          19070      mcp14 default
+!  CTEQ6L1       LO          10042      -          mcp17 default, LHPDFCTEQ6L1 (Aug '05)
+!  CTEQ6L        LO          10041      -
+!  CTEQ6M        NLO         10000      10050      ***plus 40 error PDFs (10051-10090)***
+!  CTEQ61        NLO         10100      10150      ***plus 40 error PDFs (10151-10190)***
+!  CTEQ66        NLO         -          10550      ***plus 44 error PDFs (10151-10194)***  
+!  MRST01lo      LO          -          20060
+!  MRST01E       NLO         20100      20150      ***plus 30 error PDFs (20151-20180)***
+!  MRST01nnlo    NNLO        -          20070
+!  Alekhin02lo   LO          -          40350      ***plus 15 error PDFs (40351-40365)***
+!  Alekhin02nlo  NLO         -          40450      ***plus 15 error PDFs (40451-40465)***
+!  Alekhin02nnlo NNLO        -          40550      ***plus 15 error PDFs (40551-40565)***
+!
+!  See http://www-d0.fnal.gov/computing/MonteCarlo/generator_tools/pdf_correspondence.html
+!  and http://www-clued0.fnal.gov/runjob/current/SupportedPDFs.html for mc_runjob specifs
+!
+MSTP(51)=10042
+MSTP(52)=2
+MSTP(2)=1         ! LO evolution of alpha_s for ME
+MSTP(3)=1         ! set lambda values by hand; ! The following is good for CTEQ6L1 !
+MSTU(112)=5       ! 5 flavour scheme
+PARU(112)=0.165   ! lambda_QCD used in PYALPS
+PARP(1)=0.165     ! lambda_QCD for ME (hard interaction)
+PARP(61)=0.165    ! lamba_QCD for space-like PS
+PARP(72)=0.165    ! lambda_QCD for time-like PS (not from resonances)
+!
+! HF quarks masses
+PMAS(6,1)=175.0
+PMAS(5,1)=4.75
+PMAS(4,1)=1.55
+!
+! Changing the random number seed
+MRPY(1)=66700
+!
+! Choose the physics process(es)
+MSEL=12
+!
+!  Kinematical cuts
+CKIN(3)=0.0           ! Minimum Pt for hard 2->2 process
+CKIN(4)=-1.0          ! Maximum Pt for hard 2->2 process
+CKIN(9)=-5.0          ! Rapidity range for product with
+CKIN(10)=5.0          ! largest rapidity in hard 2->2 process
+CKIN(11)=-5.0         ! Rapidity range for product with
+CKIN(12)=5.0          ! smallest rapidity in hard 2->2 process
+!
+! Forcing W->enu decays
+MDME(190,1) = 0 ! 0.321392    dbar            u
+MDME(191,1) = 0 ! 0.016496    dbar            c
+MDME(192,1) = 0 ! 0.000000    dbar            t
+MDME(193,1) =-1 ! 0.000000    dbar            t'
+MDME(194,1) = 0 ! 0.016503    sbar            u
+MDME(195,1) = 0 ! 0.320668    sbar            c
+MDME(196,1) = 0 ! 0.000000    sbar            t
+MDME(197,1) =-1 ! 0.000000    sbar            t'
+MDME(198,1) = 0 ! 0.000010    bbar            u
+MDME(199,1) = 0 ! 0.000591    bbar            c
+MDME(200,1) = 0 ! 0.000000    bbar            t
+MDME(201,1) =-1 ! 0.000000    bbar	      t'
+MDME(202,1) =-1 ! 0.000000    b'bar	      u
+MDME(203,1) =-1 ! 0.000000    b'bar	      c
+MDME(204,1) =-1 ! 0.000000    b'bar	      t
+MDME(205,1) =-1 ! 0.000000    b'bar	      t'
+MDME(206,1) = 1 ! 0.108140    e+              nu_e
+MDME(207,1) = 0 ! 0.108139    mu+             nu_mu
+MDME(208,1) = 0 ! 0.108060    tau+            nu_tau
+MDME(209,1) =-1 ! 0.000000    tau'+           nu'_tau
+!
+! Underlying event tuning
+! The following PARP(67,83-86,90) parameters should 
+! be adapted for PDFs different than CTEQ5L !!!
+MSTP(81)=1     ! TURN ON MULTIPLE INTERACTIONS
+MSTP(82)=4     ! varying IP 2-gauss. matter distr
+PARP(82)=2.0   ! smooth turn off below pT=PARP(82)
+PARP(67)=4.0   ! ISR Max Scale Factor
+PARP(83)=0.5   !
+PARP(84)=0.4   !
+PARP(85)=0.9   ! 
+PARP(86)=0.95  !
+PARP(89)=1800. !
+PARP(90)=0.25  !
+!
+MSTU(16)=2     ! Improved particle history record

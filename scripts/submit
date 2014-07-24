@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#2411
+for ((i=367; i<368; i++))
+    do
+	export job=`printf "%d" $i` 
+	echo $job
+	qsub -koe -me -M rclsa@fnal.gov -l nodes=1 -v job -q medium@d0cabsrv1 cabpythia_nu.sh
+	sleep 1
+
+    done
+
+# for ((i=500; i<1000; i++))
+#     do
+# 	export job=`printf "%d" $i` 
+# 	echo $job
+# 	qsub -koe -me -M rclsa@fnal.gov -l nodes=1 -v job -q sam_lo@d0cabsrv2 cabpythia.sh
+# 	sleep 1
+
+#     done
+
+
